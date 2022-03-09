@@ -1,0 +1,46 @@
+/* Main content */
+
+.main-content {
+	height: 100%;
+	margin: 1em 0;
+}
+
+/* Main content */
+
+/* Carousel */
+
+.my-carousel .carousel-item {
+	display: flex;
+	max-height: 750px;
+}
+
+.my-carousel .carousel-item img {
+	object-fit: cover;
+}
+
+/* Carousel */
+
+/* Product card */
+
+.card {
+	height: 200px;
+	width: 200px;
+	margin-bottom: 5em;
+}
+
+.card-img-top {
+	min-width: 100%;
+	min-height: 100%;
+	object-fit: contain;
+	padding: 0.5em;
+}
+
+.card-body {
+	padding-top: 0.1em;
+}
+
+.card-text {
+	text-align: center;
+}
+
+/* Product card */
