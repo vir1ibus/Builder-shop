@@ -1,14 +1,33 @@
 <section class="main-content">
 	<div class="container-xxl">
 		<div class="row">
-			<div class="col-lg-6 col-sm-12 mb-5">
+			<?php 
+				$sql = "SELECT * FROM item WHERE id=${_GET['item']};";
+				$result = mysqli_query($connect_db, $sql);
+				if(!$result){
+					print("Произошла ошибка при выполнении запроса");
+				} else {
+					while($row = mysqli_fetch_array($result)){
+						echo "
+							<div class=\"col-lg-12 col-sm-12 mb-5\">
+								<h2>${row['name']}</h2>
+								<img src=\"data:image/jpeg;base64,${row['image']}\" alt=\"...\" class=\"item-img\">
+								<h3>${row['price']} руб.</h3>
+								<button type=\"button\" class=\"btn btn-primary\"><i class=\"fas fa-cart-plus\"></i></button>
+								<button type=\"button\" class=\"btn btn-secondary\" data-bs-dismiss=\"modal\"><i class=\"far fa-credit-card\"></i></button>
+							</div>
+						";
+					}
+				}
+			?>
+			<!-- <div class="col-lg-12 col-sm-12 mb-5">
 				<h2>Снегоуборщик бензиновый Daewoo DAST 7565</h2>
 				<img src="images/items/Daewoo-DAST-7565.jpg" alt="..." class="item-img">
 				<h3>74 990 руб.</h3>
 				<button type="button" class="btn btn-primary"><i class="fas fa-cart-plus"></i></button>
 				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="far fa-credit-card"></i></button>
 			</div>
-			<!-- <div class="col-lg-6 col-sm-12 mb-5 d-flex flex-column">
+			<div class="col-lg-6 col-sm-12 mb-5 d-flex flex-column">
 				<h2 class="align-self-center">Характеристики</h2>
 				<ul class="list-group list-group-flush">
 					<li class="list-group-item d-flex justify-content-between"><span>Тип продукта</span><span>Снегоуборщик</span></li>
@@ -29,7 +48,7 @@
 					<li class="list-group-item d-flex justify-content-between"><span>Система шнеков</span><span>двухступенчатая</span></li>
 					<li class="list-group-item d-flex justify-content-between"><span>Тип шнека</span><span>металлический</span></li>
 				</ul>
-			</div>
- -->		</div>
+			</div> -->
+		</div>
 	</div>
 </section>
