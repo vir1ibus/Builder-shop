@@ -1,0 +1,25 @@
+/* Main content */
+
+.registration-container {
+	margin: auto;
+	text-align: right;
+	min-width: 50%;
+}
+
+@media (max-width: 944px) {
+	.registration-container {
+		margin: auto;
+		text-align: right;
+		min-width: 65%;
+	}
+}
+
+@media (max-width: 767px) {
+	.registration-container {
+		margin: auto;
+		text-align: left;
+		min-width: 50%;
+	}
+}
+
+/* Main content */

@@ -7,13 +7,19 @@
 		</div>
 		<div class="carousel-inner">
 			<div class="carousel-item active">
-				<img src="images/carousel/1.jpg" class="d-block w-100" alt="...">
+				<a href="index.php?page=itemspage&category=8" class="w-100">
+					<img src="img/carousel/1.jpg" class="d-block w-100" alt="...">
+				</a>
 			</div>
 			<div class="carousel-item">
-				<img src="images/carousel/2.jpg" class="d-block w-100" alt="...">
+				<a href="index.php?page=itemspage&category=11" class="w-100">
+					<img src="img/carousel/2.jpg" class="d-block w-100" alt="...">
+				</a>
 			</div>
 			<div class="carousel-item">
-				<img src="images/carousel/3.jpg" class="d-block w-100" alt="...">
+				<a href="index.php?page=itemspage&category=12" class="w-100">
+					<img src="img/carousel/3.jpg" class="d-block w-100" alt="...">
+				</a>
 			</div>
 		</div>
 		<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -40,7 +46,7 @@
 				<div class=\"col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center\">
 					<a href=\"index.php?page=itemspage&category=${row['id']}\">
 						<div class=\"card\">
-							<img src=\"data:image/jpeg;base64,${row['image']}\" class=\"card-img-top\" alt=\"...\">
+							<img src=\"${row['image']}\" class=\"card-img-top\" alt=\"...\">
 							<div class=\"d-flex card-body justify-content-center\">
 								<p class=\"card-text\">
 									${row['name']}

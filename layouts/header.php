@@ -10,12 +10,15 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="css/all.css">
-		<link rel="stylesheet" href="css/style.css">
-		<link rel="stylesheet" href="css/header.css">
-		<link rel="stylesheet" href="css/homepage.css">
-		<link rel="stylesheet" href="css/itemspage.css">
-		<link rel="stylesheet" href="css/iteminfopage.css">
-		<link rel="stylesheet" href="css/footer.css">
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<link rel="stylesheet" type="text/css" href="css/registrationpage.css">
+		<link rel="stylesheet" type="text/css" href="css/confrimregistration.css">
+		<link rel="stylesheet" type="text/css" href="css/notfoundpage.css">
+		<link rel="stylesheet" type="text/css" href="css/header.css">
+		<link rel="stylesheet" type="text/css" href="css/homepage.css">
+		<link rel="stylesheet" type="text/css" href="css/itemspage.css">
+		<link rel="stylesheet" type="text/css" href="css/iteminfopage.css">
+		<link rel="stylesheet" type="text/css" href="css/footer.css">
 		<title>Build store</title>
 	</head>
 	<body>
@@ -23,17 +26,7 @@
 			<div class="container-fluid">
 				<a class="navbar-brand" href="index.php?page=index">
 					Build store
-					<?php
-						$sql = "SELECT img FROM service_images WHERE id=1;";
-						$result = mysqli_query($connect_db, $sql);
-						if(!$result){
-							print("Произошла ошибка при выполнении запроса");
-						} else {
-							while($row = mysqli_fetch_array($result)) {
-								echo "<img src=\"data:image/png;base64,${row['img']}\">";
-							}
-						}
-					?>
+					<img src="img/builders-icon.png">
 				</a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
@@ -53,7 +46,7 @@
 									<div class="modal-body">
 										<table class="table">
 											<tbody>
-												<tr>
+												<!-- <tr>
 													<td><img src="images/items/Daewoo-DAST-7565.jpg"></td>
 													<td><a href="index.php?page=iteminfopage">Снегоуборщик бензиновый Daewoo DAST 7565</a></td>
 													<td>74990 руб.</td>
@@ -64,7 +57,7 @@
 													<td><a href="index.php?page=iteminfopage">Снегоуборщик электрический Daewoo DAST 3000E</a></td>
 													<td>21990 руб.</td>
 													<td>1</td>
-												</tr>
+												</tr> -->
 											</tbody>
 										</table>
 									</div>
@@ -79,10 +72,18 @@
 							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 								<i class="far fa-user"></i>
 							</a>
-							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<li><a class="dropdown-item" href="#">Регистрация</a></li>
-								<li><a class="dropdown-item" href="#">Авторизация</a></li>
-							</ul>
+							<?php
+								if(isset($_COOKIE['token'])){
+									// $token = random_bytes(15);
+									// echo bin2hex($token);
+								} else {
+									echo "
+										<ul class=\"dropdown-menu\" aria-labelledby=\"navbarDropdown\">
+											<li><a class=\"dropdown-item\" href=\"index.php?page=registrationpage\">Регистрация</a></li>
+											<li><a class=\"dropdown-item\" href=\"index.php?page=authorizationpage\">Авторизация</a></li>
+										</ul>";
+								}
+							?>
 						</li>
 					</ul>
 				</div>

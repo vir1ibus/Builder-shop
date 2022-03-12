@@ -1,3 +1,9 @@
-.not-found {
-	flex: 1 0 auto;
+/* Main content */
+
+.notfound-container {
+	margin: auto;
+	text-align: center;
+	min-width: 50%;
 }
+
+/* Main content */
