@@ -1,7 +1,7 @@
 /* Main content */
 
-.main-content {
-	margin: 1em 0;
+.main-content .container {
+	padding: 0;
 }
 
 /* Main content */
@@ -24,7 +24,7 @@
 .card {
 	height: 200px;
 	width: 200px;
-	margin-bottom: 5em;
+	margin-bottom: 7vh;
 }
 
 .card-img-top {

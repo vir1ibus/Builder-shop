@@ -1,5 +1,5 @@
 <div class="confrim-registration-container">
-	<form action="validation_registration.php" method="POST">
+	<form action="service_scripts/registration.php" method="POST">
 		<div class="row mb-2">
 			<label for="confrim-code" class="col-md-4 col-form-label">Код подтверждения</label>
 			<div class="col-md-8">

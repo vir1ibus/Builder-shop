@@ -22,3 +22,11 @@
 .modal-body img {
 	max-width: 35px;
 }
+
+.logout-container {
+	padding: 0 25%;
+}
+
+.username-container {
+	padding: 0 15%;
+}

@@ -3,7 +3,7 @@
 ?>
 	
 <div class="registration-container">
-	<form action="validation_registration.php" method="POST">
+	<form action="service_scripts/registration.php" method="POST">
 		<div class="row mb-2">
 			<label for="username" class="col-md-4 col-form-label">Имя пользователя</label>
 			<div class="col-md-8">
@@ -39,50 +39,56 @@
 				switch($_SESSION['error']){
 					case 'error_username':
 						echo "
-							<div class=\"row mb-2 justify-content-center\">
-								<label class=\"col-md-4 col-form-label\">Некорректное имя пользователя (Более 3-х символов, латиница).</label>
+							<div class=\"row mb-2 text-center\">
+								<label class=\"col-form-label\">Некорректное имя пользователя (Более 3-х символов, латиница)</label>
 							</div>";
 					break;
 					case 'error_email':
 						echo "
-							<div class=\"row mb-2 justify-content-center\">
-								<label class=\"col-md-4 col-form-label\">Некорректная почта.</label>
+							<div class=\"row mb-2 text-center\">
+								<label class=\"col-form-label\">Некорректная почта</label>
 							</div>";
 					break;
 					case 'error_lenght_password':
 						echo "
-							<div class=\"row mb-2 justify-content-center\">
-								<label class=\"col-md-4 col-form-label\">Длина пароля должна быть не менее 8 символов.</label>
+							<div class=\"row mb-2 text-center\">
+								<label class=\"col-form-label\">Длина пароля должна быть не менее 8 символов</label>
 							</div>";
 					break;
 					case 'error_match_password':
 						echo "
-							<div class=\"row mb-2 justify-content-center\">
-								<label class=\"col-md-4 col-form-label\">Пароли не совпадают.</label>
+							<div class=\"row mb-2 text-center\">
+								<label class=\"col-form-label\">Пароли не совпадают</label>
 							</div>";
 					break;
 					case 'error_send_mail':
 						echo "
-							<div class=\"row mb-2 justify-content-center\">
-								<label class=\"col-md-4 col-form-label\">Проблема с отправкой письма.</label>
+							<div class=\"row mb-2 text-center\">
+								<label class=\"col-form-label\">Проблема с отправкой письма</label>
 							</div>";
 					break;
 					case 'error_confrim_code':
 						echo "
-							<div class=\"row mb-2 justify-content-center\">
-								<label class=\"col-md-4 col-form-label\">Код подтверждения неверный.</label>
+							<div class=\"row mb-2 text-center\">
+								<label class=\"col-form-label\">Код подтверждения неверный</label>
 							</div>";
 					break;
 					case 'error_username_exists':
 						echo "
-							<div class=\"row mb-2 justify-content-center\">
-								<label class=\"col-md-4 col-form-label\">Имя пользователя занято.</label>
+							<div class=\"row mb-2 text-center\">
+								<label class=\"col-form-label\">Имя пользователя занято</label>
 							</div>";
 					break;
 					case 'error_email_exists':
 						echo "
-							<div class=\"row mb-2 justify-content-center\">
-								<label class=\"col-md-4 col-form-label\">Электронная почта уже зарегистрирована.</label>
+							<div class=\"row mb-2 text-center\">
+								<label class=\"col-form-label\">Электронная почта уже зарегистрирована</label>
+							</div>";
+					break;
+					case 'error_db':
+						echo "
+							<div class=\"row mb-2 text-center\">
+								<label class=\"col-form-label\">Ошибка сервера</label>
 							</div>";
 					break;
 				}

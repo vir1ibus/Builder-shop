@@ -183,6 +183,24 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 
 
+-- -----------------------------------------------------
+-- Table `builder_shop`.`user_token`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `builder_shop`.`user_token` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `user_id` INT NOT NULL,
+  `token` VARCHAR(255) NOT NULL,
+  `time_expired` DATETIME NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_user_token_user1_idx` (`user_id` ASC) VISIBLE,
+  CONSTRAINT `fk_user_token_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `builder_shop`.`user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

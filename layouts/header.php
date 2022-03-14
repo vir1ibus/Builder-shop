@@ -1,7 +1,5 @@
 <?php
-	if (!isset($_SESSION)) {
-	    session_start();
-	}
+	session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,6 +10,7 @@
 		<link rel="stylesheet" type="text/css" href="css/all.css">
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 		<link rel="stylesheet" type="text/css" href="css/registrationpage.css">
+		<link rel="stylesheet" type="text/css" href="css/authorizationpage.css">
 		<link rel="stylesheet" type="text/css" href="css/confrimregistration.css">
 		<link rel="stylesheet" type="text/css" href="css/notfoundpage.css">
 		<link rel="stylesheet" type="text/css" href="css/header.css">
@@ -73,14 +72,28 @@
 								<i class="far fa-user"></i>
 							</a>
 							<?php
-								if(isset($_COOKIE['token'])){
-									// $token = random_bytes(15);
-									// echo bin2hex($token);
+								if($_SESSION['authorized']) {
+									echo "
+										<ul class=\"dropdown-menu\" aria-labelledby=\"navbarDropdown\">
+											<form action=\"service_scripts/authorization.php\" method=\"POST\">
+												<input type=\"hidden\" name=\"token\" value=\"${token}\">
+												<li class=\"row text-center username-container\">
+													<a href=\"index.php?page=personal-account-page\" class=\"btn btn-primary dropdown-item col-form-label\">${_SESSION['username']}</a>
+												</li>
+												<li class=\"row justify-content-center logout-container\">
+													<button class=\"btn btn-secondary\" name=\"logout\">Выйти</button>
+												</li>
+											</form>
+										</ul>";
 								} else {
 									echo "
 										<ul class=\"dropdown-menu\" aria-labelledby=\"navbarDropdown\">
-											<li><a class=\"dropdown-item\" href=\"index.php?page=registrationpage\">Регистрация</a></li>
-											<li><a class=\"dropdown-item\" href=\"index.php?page=authorizationpage\">Авторизация</a></li>
+											<li>
+												<a class=\"dropdown-item\" href=\"index.php?page=registrationpage\">Регистрация</a>
+											</li>
+											<li>
+												<a class=\"dropdown-item\" href=\"index.php?page=authorizationpage\">Авторизация</a>
+											</li>
 										</ul>";
 								}
 							?>

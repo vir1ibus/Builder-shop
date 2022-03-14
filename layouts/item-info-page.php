@@ -7,7 +7,7 @@
 				if(!$result){
 					print("Произошла ошибка при выполнении запроса");
 				} else {
-					while($row = mysqli_fetch_array($result)){
+					$row = mysqli_fetch_array($result);
 						echo "
 							<div class=\"col-lg-6 col-sm-12 text-center\">
 								<h2>${row['name']}</h2>
@@ -17,7 +17,6 @@
 								<button type=\"button\" class=\"btn btn-secondary\" data-bs-dismiss=\"modal\"><i class=\"far fa-credit-card\"></i></button>
 							</div>
 						";
-					}
 				}
 			?>
 
