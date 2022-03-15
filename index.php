@@ -6,21 +6,19 @@
         $_SESSION['authorized'] = false;
     }
 
-    if(isset($_SESSION['token'])) {
+    if(!isset($_COOKIE['token']) && isset($_SESSION['token'])) {
         setcookie('token', $_SESSION['token'], time() + 3600);
-        $token = $_SESSION['token'];
-        unset($_SESSION['token']);
     }
 
-    if(isset($_COOKIE['token'])) {
-        $token = $_COOKIE['token'];
+    if(isset($_COOKIE['token']) && !isset($_SESSION['token'])) {
+        $_SESSION['token'] = $_COOKIE['token'];
     }
 
-    if(isset($token)) {
+    if(isset($_SESSION['token'])) {
         $now = date_create();
         date_timestamp_set($now, time());
         $now_str = date_format($now, 'Y-m-d H:i:s');
-        $sql = "SELECT user_id FROM user_token WHERE token = '${token}' AND time_expired > '${now_str}';";
+        $sql = "SELECT user_id FROM user_token WHERE token = '".$_SESSION['token']."' AND time_expired > '${now_str}';";
         $result = mysqli_query($connect_db, $sql);
         if(!mysqli_num_rows($result)) {
             unset($_SESSION['token'], $_SESSION['user_id'], $_SESSION['username']);
@@ -50,7 +48,11 @@
         } else {
             switch ($_GET['page']) {
                 case 'authorizationpage':
-                    require 'layouts/authorization-page.php';
+                    if($_SESSION['authorized']) {
+                        require('layouts/home-page.php');
+                    } else {
+                        require 'layouts/authorization-page.php';
+                    }
                 break;
 
                 case 'registrationpage':
@@ -71,7 +73,7 @@
 
                 case 'confrimregistration':
                     if(isset($_SESSION['username-reg'], $_SESSION['email-reg'], $_SESSION['password-reg'])) {
-                        require('layouts/confrim-registration-page.php');
+                        require('layouts/confirm-registration-page.php');
                     } else {
                         require('layouts/not-found-page.php');
                     }

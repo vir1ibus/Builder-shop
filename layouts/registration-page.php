@@ -1,7 +1,10 @@
 <?php
 	unset($_POST['registration']);
+    if(isset($_GET['prev-page'])) {
+        $_SESSION['prev-page'] = $_GET['prev-page'];
+    }
 ?>
-	
+
 <div class="registration-container">
 	<form action="service_scripts/registration.php" method="POST">
         <?php

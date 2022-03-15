@@ -1,3 +1,9 @@
+<?php
+    if(isset($_GET['prev-page'])) {
+        $_SESSION['prev-page'] = $_GET['prev-page'];
+    }
+?>
+
 <div class="authorization-container">
 	<form action="service_scripts/authorization.php" method="POST">
 		<div class="row mb-2">

@@ -2,17 +2,18 @@
     require_once('controller-database.php');
 	session_start();
 
-    if(isset($_POST['current-page'])){
-        $_SESSION['current-page'] = $_POST['current-page'];
+    if(isset($_GET['prev-page'])) {
+        $_SESSION['prev-page'] = $_GET['prev-page'];
     }
 
-	if(isset($_POST['logout'])) {
-		$sql = "DELETE FROM user_token WHERE token = '${_POST['token']}';";
-		if(mysqli_query($connect_db, $sql)) {
+	if(isset($_GET['logout'])) {
+		$sql = "DELETE FROM user_token WHERE token = '${_SESSION['token']}';";
+        if(mysqli_query($connect_db, $sql)) {
 			setcookie("token", "", -1);
-			header("Location: http://".$_SERVER['HTTP_HOST']."/".$_SESSION['current-page']);
-            unset($_SESSION['current-page']);
+			header("Location: http://".$_SESSION['prev-page']);
+            unset($_SESSION['prev-page']);
 		}
+        echo "<p>".mysqli_error($connect_db)."</p>";
 	} else if(isset($_POST['login'])) {
 		$username = mysqli_real_escape_string($connect_db, $_POST['username']);
 		$sql = "SELECT * FROM user WHERE username = '${username}' AND password = '".hash('sha512', $_POST['password'])."';";
@@ -33,13 +34,13 @@
 				$_SESSION['user_id'] = $user_id;
 				$_SESSION['username'] = $row['username'];
                 $_SESSION['token'] = $token;
-				header("Location: http://".$_SERVER['HTTP_HOST']."/".$_SESSION['current-page']);
-                unset($_SESSION['current-page']);
+				header("Location: http://".$_SESSION['prev-page']);
+                unset($_SESSION['prev-page']);
             } else {
 				$_SESSION['error'] = "error_db";
 				header("Location: http://".$_SERVER['HTTP_HOST']."/index.php?page=authorizationpage");
             }
-            exit;
         }
 	}
+    exit;
 ?>

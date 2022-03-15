@@ -1,15 +1,15 @@
 <?php
 	require_once('controller-database.php');
 	session_start();
-	if(isset($_POST['confrim'])) {
-		if($_SESSION['code'] == $_POST['confrim-code']){
-			$sql = "INSERT INTO user (username, password, email) VALUES ('".mysqli_escape_string($connect_db, $_SESSION['email-reg'])."', '".hash('sha512', $_SESSION['password-reg'])."', '".mysqli_escape_string($connect_db, $_SESSION['email-reg'])."');";
+	if(isset($_POST['confirm'])) {
+		if($_SESSION['code'] == $_POST['confirm-code']){
+			$sql = "INSERT INTO user (username, password, email) VALUES ('".mysqli_escape_string($connect_db, $_SESSION['username-reg'])."', '".hash('sha512', $_SESSION['password-reg'])."', '".mysqli_escape_string($connect_db, $_SESSION['email-reg'])."');";
 			if(mysqli_query($connect_db, $sql)){
-				unset($_SESSION['username-reg'], $_SESSION['email-reg'], $_SESSION['password-reg'], $_POST['confrim']);
+				unset($_SESSION['username-reg'], $_SESSION['email-reg'], $_SESSION['password-reg'], $_POST['confirm']);
 				header("Location: http://".$_SERVER['HTTP_HOST']."/index.php?page=authorizationpage");
 				exit;
 			} else {
-				unset($_SESSION['username-reg'], $_SESSION['email-reg'], $_SESSION['password-reg'], $_POST['confrim-reg']);
+				unset($_SESSION['username-reg'], $_SESSION['email-reg'], $_SESSION['password-reg'], $_POST['confirm-reg']);
 				$_SESSION['error'] = 'error_db';
 				header("Location: http://".$_SERVER['HTTP_HOST']."/index.php?page=registrationpage");
 			}
@@ -68,7 +68,7 @@
 
 			if(mail($_SESSION['email-reg'], $subject, $message, $headers)){
 				$_SESSION['code'] = $code;
-				header("Location: http://".$_SERVER['HTTP_HOST']."/index.php?page=confrimregistration");
+				header("Location: http://".$_SERVER['HTTP_HOST']."/index.php?page=confirmregistration");
 				unset($_POST['registration']);
 				exit;
 			} else {
