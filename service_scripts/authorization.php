@@ -10,7 +10,7 @@
 		$sql = "DELETE FROM user_token WHERE token = '${_POST['token']}';";
 		if(mysqli_query($connect_db, $sql)) {
 			setcookie("token", "", -1);
-			header("Location: http://builder-shop/".$_SESSION['current-page']);
+			header("Location: http://".$_SERVER['HTTP_HOST']."/".$_SESSION['current-page']);
             unset($_SESSION['current-page']);
 		}
 	} else if(isset($_POST['login'])) {
@@ -20,7 +20,7 @@
 		$error = mysqli_error($connect_db);
 		if(mysqli_num_rows($result) == 0) {
 			$_SESSION['error'] = "error_login";
-			header("Location: http://builder-shop/index.php?page=authorizationpage");
+			header("Location: http://".$_SERVER['HTTP_HOST']."/index.php?page=authorizationpage");
 		} else {
 			$row = mysqli_fetch_array($result);
 			$user_id = $row['id'];
@@ -33,11 +33,11 @@
 				$_SESSION['user_id'] = $user_id;
 				$_SESSION['username'] = $row['username'];
                 $_SESSION['token'] = $token;
-				header('Location: http://builder-shop/'.$_SESSION['current-page']);
+				header("Location: http://".$_SERVER['HTTP_HOST']."/".$_SESSION['current-page']);
                 unset($_SESSION['current-page']);
             } else {
 				$_SESSION['error'] = "error_db";
-				header("Location: http://builder-shop/index.php?page=authorizationpage");
+				header("Location: http://".$_SERVER['HTTP_HOST']."/index.php?page=authorizationpage");
             }
             exit;
         }

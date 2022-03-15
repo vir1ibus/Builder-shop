@@ -1,7 +1,7 @@
 <?php
     session_start();
     require_once('service_scripts/controller-database.php');
-    
+
     if(!isset($_SESSION['authorized'])) {
         $_SESSION['authorized'] = false;
     }

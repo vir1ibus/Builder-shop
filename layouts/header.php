@@ -9,14 +9,14 @@
 		<link rel="stylesheet" href="css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="css/all.css">
 		<link rel="stylesheet" type="text/css" href="css/style.css">
-		<link rel="stylesheet" type="text/css" href="css/registrationpage.css">
-		<link rel="stylesheet" type="text/css" href="css/authorizationpage.css">
-		<link rel="stylesheet" type="text/css" href="css/confrimregistration.css">
-		<link rel="stylesheet" type="text/css" href="css/notfoundpage.css">
+		<link rel="stylesheet" type="text/css" href="css/registration-page.css">
+		<link rel="stylesheet" type="text/css" href="css/authorization-page.css">
+		<link rel="stylesheet" type="text/css" href="css/confrim-registration-page.css">
+		<link rel="stylesheet" type="text/css" href="css/not-found-page.css">
 		<link rel="stylesheet" type="text/css" href="css/header.css">
-		<link rel="stylesheet" type="text/css" href="css/homepage.css">
-		<link rel="stylesheet" type="text/css" href="css/itemspage.css">
-		<link rel="stylesheet" type="text/css" href="css/iteminfopage.css">
+		<link rel="stylesheet" type="text/css" href="css/home-page.css">
+		<link rel="stylesheet" type="text/css" href="css/items-from-category-page.css">
+		<link rel="stylesheet" type="text/css" href="css/item-info-page.css">
 		<link rel="stylesheet" type="text/css" href="css/footer.css">
 		<title>Build store</title>
 	</head>
@@ -77,7 +77,7 @@
 										<ul class=\"dropdown-menu\" aria-labelledby=\"navbarDropdown\">
 											<form action=\"service_scripts/authorization.php\" method=\"POST\">
 												<input type=\"hidden\" name=\"token\" value=\"${token}\">
-												<input type=\"hidden\" name=\"current-page\" value=\"${_SERVER['REQUEST_URI']}\">
+												<input type=\"hidden\" name=\"current-page\" value=\"${_SERVER['HTTP_HOST']}/${_SERVER['REQUEST_URI']}\">
 												<li class=\"row text-center username-container\">
 													<a href=\"index.php?page=personal-account-page\" class=\"btn btn-primary dropdown-item col-form-label\">${_SESSION['username']}</a>
 												</li>

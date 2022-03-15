@@ -4,18 +4,40 @@
 	
 <div class="registration-container">
 	<form action="service_scripts/registration.php" method="POST">
-		<div class="row mb-2">
-			<label for="username" class="col-md-4 col-form-label">Имя пользователя</label>
-			<div class="col-md-8">
-				<input type="text" class="form-control" name="username" placeholder="Username" required>
-			</div>
-		</div>
-		<div class="row mb-2">
-			<label for="user-email" class="col-md-4 col-form-label">Почта</label>
-			<div class="col-md-8">
-				<input type="text" class="form-control" name="user-email" placeholder="test@mail.ru" required>
-			</div>
-		</div>
+        <?php
+            if(isset($_SESSION['username-reg'], $_SESSION['email-reg'])) {
+                echo "
+                    <div class=\"row mb-2\">
+                        <label for=\"username\" class=\"col-md-4 col-form-label\">Имя пользователя</label>
+                        <div class=\"col-md-8\">
+                            <input type=\"text\" class=\"form-control\" name=\"username\" placeholder=\"Username\" value=\"${_SESSION['username-reg']}\" required>
+                        </div>
+                    </div>
+                    <div class=\"row mb-2\">
+                        <label for=\"user-email\" class=\"col-md-4 col-form-label\">Почта</label>
+                        <div class=\"col-md-8\">
+                            <input type=\"text\" class=\"form-control\" name=\"user-email\" placeholder=\"test@mail.ru\" value=\"${_SESSION['email-reg']}\" required>
+                        </div>
+                    </div>
+                ";
+                unset($_SESSION['username-reg'], $_SESSION['email-reg'], $_SESSION['password-reg']);
+            } else {
+                echo "
+                    <div class=\"row mb-2\">
+                        <label for=\"username\" class=\"col-md-4 col-form-label\">Имя пользователя</label>
+                        <div class=\"col-md-8\">
+                            <input type=\"text\" class=\"form-control\" name=\"username\" placeholder=\"Username\" required>
+                        </div>
+                    </div>
+                    <div class=\"row mb-2\">
+                        <label for=\"user-email\" class=\"col-md-4 col-form-label\">Почта</label>
+                        <div class=\"col-md-8\">
+                            <input type=\"text\" class=\"form-control\" name=\"user-email\" placeholder=\"test@mail.ru\" required>
+                        </div>
+                    </div>
+                ";
+            }
+        ?>
 		<div class="row mb-2">
 			<label for="user-password" class="col-md-4 col-form-label">Пароль</label>
 			<div class="col-md-8">
@@ -34,7 +56,7 @@
 				<button type="submit" class="btn btn-primary w-75" name="registration">Зарегистрироваться</button>
 			</div>
 		</div>
-		<?php
+        <?php
 			if(isset($_SESSION['error'])) {
 				switch($_SESSION['error']){
 					case 'error_username':
@@ -49,7 +71,7 @@
 								<label class=\"col-form-label\">Некорректная почта</label>
 							</div>";
 					break;
-					case 'error_lenght_password':
+					case 'error_length_password':
 						echo "
 							<div class=\"row mb-2 text-center\">
 								<label class=\"col-form-label\">Длина пароля должна быть не менее 8 символов</label>
@@ -92,7 +114,7 @@
 							</div>";
 					break;
 				}
-				$_SESSION['error'] = '';
+				unset($_SESSION['error']);
 			}
 		?>
 	</form>
