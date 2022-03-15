@@ -115,41 +115,6 @@ DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `builder_shop`.`shopping_cart`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `builder_shop`.`shopping_cart` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `user_id` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE INDEX `user_id_UNIQUE` (`user_id` ASC) VISIBLE,
-  INDEX `fk_shopping_cart_user1_idx` (`user_id` ASC) VISIBLE,
-  CONSTRAINT `fk_shopping_cart_user1`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `builder_shop`.`user` (`id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
-
-
--- -----------------------------------------------------
--- Table `builder_shop`.`shopping_cart_has_item`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `builder_shop`.`shopping_cart_has_item` (
-  `shopping_cart_id` INT NOT NULL,
-  `item_item_id` INT NOT NULL,
-  PRIMARY KEY (`shopping_cart_id`, `item_item_id`),
-  INDEX `fk_shopping_cart_has_item_item1_idx` (`item_item_id` ASC) VISIBLE,
-  INDEX `fk_shopping_cart_has_item_shopping_cart1_idx` (`shopping_cart_id` ASC) VISIBLE,
-  CONSTRAINT `fk_shopping_cart_has_item_item1`
-    FOREIGN KEY (`item_item_id`)
-    REFERENCES `builder_shop`.`item` (`id`),
-  CONSTRAINT `fk_shopping_cart_has_item_shopping_cart1`
-    FOREIGN KEY (`shopping_cart_id`)
-    REFERENCES `builder_shop`.`shopping_cart` (`id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
-
-
--- -----------------------------------------------------
 -- Table `builder_shop`.`characteristics`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `builder_shop`.`characteristics` (
@@ -189,7 +154,7 @@ DEFAULT CHARACTER SET = utf8mb3;
 CREATE TABLE IF NOT EXISTS `builder_shop`.`user_token` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `user_id` INT NOT NULL,
-  `token` VARCHAR(255) NOT NULL,
+  `token` VARCHAR(256) NOT NULL,
   `time_expired` DATETIME NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_user_token_user1_idx` (`user_id` ASC) VISIBLE,
@@ -199,6 +164,29 @@ CREATE TABLE IF NOT EXISTS `builder_shop`.`user_token` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `builder_shop`.`user_has_item`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `builder_shop`.`user_has_item` (
+  `user_id` INT NOT NULL,
+  `item_id` INT NOT NULL,
+  PRIMARY KEY (`user_id`, `item_id`),
+  INDEX `fk_user_has_item_item1_idx` (`item_id` ASC) VISIBLE,
+  INDEX `fk_user_has_item_user1_idx` (`user_id` ASC) VISIBLE,
+  CONSTRAINT `fk_user_has_item_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `builder_shop`.`user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_user_has_item_item1`
+    FOREIGN KEY (`item_id`)
+    REFERENCES `builder_shop`.`item` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
