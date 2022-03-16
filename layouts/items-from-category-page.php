@@ -53,12 +53,16 @@
                 }
 
                 if(!empty($_SESSION['characteristics'])) {
-                    echo "
-                        <div class=\"col-xxl-4 col-xl-2 col-lg-2 col-sm-4\">
+                    echo "<div class=\"col-xl-2 col-lg-3 col-sm-4\">
+                            <div class=\"row justify-content-center\">
+                                <button class=\"d-sm-none btn btn-secondary w-75\" type=\"button\" data-bs-toggle=\"collapse\" aria-expanded=\"true\" data-bs-target=\"#collapseFilters\" aria-controls=\"collapseFilters\">
+                                    Фильтры
+                                </button>
+                            </div>
+                            <div class=\"collapse\" id=\"collapseFilters\">
                             <form action=\"index.php\" method=\"GET\" id=\"search-filters\">
                                 <input type=\"hidden\" name=\"page\" value=\"itemspage\">
-                                <input type=\"hidden\" name=\"category\" value=\"${_GET['category']}\">
-                    ";
+                                <input type=\"hidden\" name=\"category\" value=\"${_GET['category']}\">";
                     foreach ($_SESSION['characteristics'] as $id => $values){
                         $sql = "SELECT name FROM characteristics WHERE id = ".$id.";";
                         $result = mysqli_query($connect_db, $sql);
@@ -88,23 +92,22 @@
                     }
                     echo "
                             </form>
+                            </div>
                         </div>
-                        <div class=\"col-xxl-8 col-xl-10 col-lg-10 col-sm-8\">
+                        <div class=\"col-xl-10 col-lg-9 col-sm-8\">
                         ";
                 } else {
                     echo "<div>";
                 }
-                unset($_SESSION['selected'], $selected);
-            ?>
 
-            <?php
                 echo "<div class=\"d-flex search-box\">
                           <input form=\"search-filters\" class=\"form-control me-2\" type=\"search\" name=\"search\" value=\"${_SESSION['search']}\" placeholder=\"Search\" aria-label=\"Search\">
                           <button form=\"search-filters\" class=\"btn btn-primary\" type=\"submit\">
                               <i class=\"fas fa-search\"></i>
                           </button>
                       </div>";
-                unset($_SESSION['search']);
+
+                unset($_SESSION['search'], $_SESSION['selected'], $selected);
             ?>
             <div class="container product-cards">
                 <div class="row d-flex justify-content-center">
@@ -118,29 +121,27 @@
                                   </div>";
                         } else {
                             while ($row = mysqli_fetch_array($result_items)) {
-                                echo "
-                                        <div class=\"col-xl-4 col-lg-6 col-sm-12 d-flex justify-content-center\">
-                                            <form action=\"\">
-                                                <div class=\"product-card\">
-                                                    <div class=\"product-thumb\">
-                                                        <a href=\"index.php?page=iteminfopage&item=${row['id']}\"><img src=\"${row['image']}\" alt=\"\"></a>
-                                                    </div>
-                                                    <div class=\"product-details\">
-                                                        <h5><a href=\"index.php?page=iteminfopage&item=${row['id']}\">${row['name']}</a></h5>
-                                                        <div class=\"product-bottom-details d-flex justify-content-between\">
-                                                            <div class=\"product-price\">
-                                                                ${row['price']} руб.
-                                                            </div>
-                                                            <div class=\"product-links\">
-                                                                <a href=\"#\"><button type=\"submit\" class=\"fas fa-shopping-cart\"></button></a>
-                                                                <a href=\"#\"><button class=\"far fa-heart\"></button></a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    ";
+                                echo "<div class=\"col-xl-4 col-lg-6 col-sm-12 d-flex justify-content-center\">
+                                          <form action=\"\">
+                                              <div class=\"product-card\">
+                                                  <div class=\"product-thumb\">
+                                                      <a href=\"index.php?page=iteminfopage&item=${row['id']}\"><img src=\"${row['image']}\" alt=\"\"></a>
+                                                  </div>
+                                                  <div class=\"product-details\">
+                                                      <h5><a href=\"index.php?page=iteminfopage&item=${row['id']}\">${row['name']}</a></h5>
+                                                      <div class=\"product-bottom-details d-flex justify-content-between\">
+                                                          <div class=\"product-price\">
+                                                              ${row['price']} руб.
+                                                          </div>
+                                                          <div class=\"product-links\">
+                                                              <a href=\"#\"><button type=\"submit\" class=\"fas fa-shopping-cart\"></button></a>
+                                                              <a href=\"#\"><button class=\"far fa-heart\"></button></a>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </form>
+                                      </div>";
                             }
                         }
                     }

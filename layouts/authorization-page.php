@@ -7,13 +7,13 @@
 <div class="authorization-container">
 	<form action="service_scripts/authorization.php" method="POST">
 		<div class="row mb-2">
-			<label for="username" class="col-md-4 col-form-label">Имя пользователя</label>
+			<label for="username" class="col-md-4 col-form-label ">Имя пользователя</label>
 			<div class="col-md-8">
 				<input type="text" class="form-control" name="username" placeholder="Username" required>
 			</div>
 		</div>
 		<div class="row mb-2">
-			<label for="password" class="col-md-4 col-form-label">Пароль</label>
+			<label for="password" class="col-md-4 col-form-label ">Пароль</label>
 			<div class="col-md-8">
 				<input type="password" class="form-control" name="password" placeholder="Password" required>
 			</div>
