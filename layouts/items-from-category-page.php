@@ -41,9 +41,29 @@
                     }
                 }
                 if(!empty($filters)) {
-                    $sql = "SELECT * FROM item WHERE (category_id=${category} AND name LIKE '%${search}%') AND id IN (SELECT item_id FROM item_has_characteristics WHERE " . implode(" OR ", $filters) . ");";
+                    $sql = "SELECT * FROM item WHERE (category_id=${category} AND name LIKE '%${search}%') AND id IN (SELECT item_id FROM item_has_characteristics WHERE " . implode(" OR ", $filters) . ")";
                 } else {
                     $sql = "SELECT * FROM item WHERE (category_id=${category} AND name LIKE '%${search}%')";
+                }
+
+                if(isset($_GET['by'])) {
+                    if($_GET['by'] != "default") {
+                        switch ($_GET['by']) {
+                            case "price":
+                                $sql .= " ORDER BY price";
+                                break;
+                            case "name":
+                                $sql .= " ORDER BY name";
+                        }
+                        switch ($_GET['order']) {
+                            case "asc":
+                                $sql .= " ASC";
+                                break;
+                            case "desc":
+                                $sql .= " DESC";
+                                break;
+                        }
+                    }
                 }
 
                 $result_items = mysqli_query($connect_db, $sql);
@@ -59,7 +79,7 @@
                                     Фильтры
                                 </button>
                             </div>
-                            <div class=\"collapse\" id=\"collapseFilters\">
+                            <div class=\"collapse mt-sm-0 mt-2\" id=\"collapseFilters\">
                             <form action=\"index.php\" method=\"GET\" id=\"search-filters\">
                                 <input type=\"hidden\" name=\"page\" value=\"itemspage\">
                                 <input type=\"hidden\" name=\"category\" value=\"${_GET['category']}\">";
@@ -103,12 +123,68 @@
                     echo "<div>";
                 }
 
-                echo "<div class=\"d-flex search-box\">
-                          <input form=\"search-filters\" class=\"form-control me-2\" type=\"search\" name=\"search\" value=\"${_SESSION['search']}\" placeholder=\"Search\" aria-label=\"Search\">
-                          <button form=\"search-filters\" class=\"btn btn-primary\" type=\"submit\">
-                              <i class=\"fas fa-search\"></i>
-                          </button>
-                      </div>";
+            echo "
+            <div class=\"row mt-sm-0 mt-2\">
+                <div class=\"col\">
+                    <select class=\"form-select\" form=\"search-filters\" name=\"by\">";
+
+                        if(isset($_GET['by'])) {
+                            echo match ($_GET['by']) {
+                                "price" => "
+                                        <option value=\"default\">Сортировка по</option>
+                                        <option value=\"price\" selected>По цене</option>
+                                        <option value=\"name\">По алфавиту</option>                
+                                    ",
+                                "name" => "
+                                        <option value=\"default\">Сортировка по</option>
+                                        <option value=\"price\">По цене</option>
+                                        <option value=\"name\" selected>По алфавиту</option>                
+                                    ",
+                                default => "
+                                        <option value=\"default\" selected>Сортировка по</option>
+                                        <option value=\"price\">По цене</option>
+                                        <option value=\"name\">По алфавиту</option>                
+                                    ",
+                            };
+                        } else {
+                            echo "
+                                <option value=\"default\" selected>Сортировка по</option>
+                                <option value=\"price\">По цене</option>
+                                <option value=\"name\">По алфавиту</option>";
+                        }
+                echo "        
+                    </select>
+                </div>
+                <div class=\"col\">
+                    <select class=\"form-select\" form=\"search-filters\" name=\"order\">";
+                        if(isset($_GET['order'])) {
+                            echo match ($_GET['order']) {
+                                "asc" => "
+                                       <option value=\"asc\" selected>По возрастанию</option>
+                                       <option value=\"desc\">По убыванию</option>                
+                                        ",
+                                "desc" => "
+                                       <option value=\"asc\">По возрастанию</option>
+                                       <option value=\"desc\" selected>По убыванию</option>                
+                                        ",
+                            };
+                        } else {
+                            echo "
+                                <option value=\"asc\" selected>По возрастанию</option>
+                                <option value=\"desc\">По убыванию</option>";
+                        }
+            echo "            
+                    </select>
+                </div>
+            </div>
+            <div class=\"row\">
+                <div class=\"d-flex search-box\">
+                    <input form=\"search-filters\" class=\"form-control me-2\" type=\"search\" name=\"search\" value=\"${_SESSION['search']}\" placeholder=\"Search\">
+                    <button form=\"search-filters\" class=\"btn btn-primary\" type=\"submit\">
+                        <i class=\"fas fa-search\"></i>
+                    </button>
+                </div>
+            </div>";
 
                 unset($_SESSION['search'], $_SESSION['selected'], $selected);
             ?>
