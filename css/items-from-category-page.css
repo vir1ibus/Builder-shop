@@ -9,7 +9,11 @@
 
 /* Search box */
 
-
+@media (min-width: 576px) {
+	.collapse:not(.show) {
+		display: block;
+	}
+}
 
 .search-box {
 	padding: 1em;

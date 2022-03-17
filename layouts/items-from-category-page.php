@@ -67,7 +67,7 @@
                         $sql = "SELECT name FROM characteristics WHERE id = ".$id.";";
                         $result = mysqli_query($connect_db, $sql);
                         $row = mysqli_fetch_array($result);
-                        echo "<h5 class=\"text-sm-center\">".$row['name']."</h5>";
+                        echo "<h5 class=\"text-center\">".$row['name']."</h5>";
                         foreach ($values as $key => $value) {
                             $checked = '';
                             if(isset($selected)) {
@@ -91,6 +91,9 @@
                         echo "<br>";
                     }
                     echo "
+                                <div class=\"row justify-content-center\">
+                                    <button class=\"btn btn-primary w-75\" type=\"submit\">Применить</button>
+                                </div>
                             </form>
                             </div>
                         </div>
@@ -122,25 +125,23 @@
                         } else {
                             while ($row = mysqli_fetch_array($result_items)) {
                                 echo "<div class=\"col-xl-4 col-lg-6 col-sm-12 d-flex justify-content-center\">
-                                          <form action=\"\">
-                                              <div class=\"product-card\">
-                                                  <div class=\"product-thumb\">
-                                                      <a href=\"index.php?page=iteminfopage&item=${row['id']}\"><img src=\"${row['image']}\" alt=\"\"></a>
-                                                  </div>
-                                                  <div class=\"product-details\">
-                                                      <h5><a href=\"index.php?page=iteminfopage&item=${row['id']}\">${row['name']}</a></h5>
-                                                      <div class=\"product-bottom-details d-flex justify-content-between\">
-                                                          <div class=\"product-price\">
-                                                              ${row['price']} руб.
-                                                          </div>
-                                                          <div class=\"product-links\">
-                                                              <a href=\"#\"><button type=\"submit\" class=\"fas fa-shopping-cart\"></button></a>
-                                                              <a href=\"#\"><button class=\"far fa-heart\"></button></a>
-                                                          </div>
+                                          <div class=\"product-card\">
+                                              <div class=\"product-thumb\">
+                                                  <a href=\"index.php?page=iteminfopage&item=${row['id']}\"><img src=\"${row['image']}\" alt=\"\"></a>
+                                              </div>
+                                              <div class=\"product-details\">
+                                                  <h5><a href=\"index.php?page=iteminfopage&item=${row['id']}\">${row['name']}</a></h5>
+                                                  <div class=\"product-bottom-details d-flex justify-content-between\">
+                                                      <div class=\"product-price\">
+                                                          ${row['price']} руб.
+                                                      </div>
+                                                      <div class=\"product-links\">
+                                                          <a href=\"#\"><button type=\"submit\" class=\"fas fa-shopping-cart\"></button></a>
+                                                          <a href=\"#\"><button class=\"far fa-heart\"></button></a>
                                                       </div>
                                                   </div>
                                               </div>
-                                          </form>
+                                          </div>
                                       </div>";
                             }
                         }

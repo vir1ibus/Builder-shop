@@ -45,6 +45,28 @@
 									<div class="modal-body">
 										<table class="table">
 											<tbody>
+                                                <?php
+                                                    if($_SESSION['authorized']) {
+                                                        $sql = "SELECT item_id FROM user_has_item WHERE user_id = ${_SESSION['user_id']}";
+                                                        $result = mysqli_query($connect_db, $sql);
+                                                        if($result && mysqli_num_rows($result) > 0) {
+                                                            while ($row = mysqli_fetch_array($result)) {
+                                                                $sql = "SELECT id, name, image, price FROM item WHERE id = ${row['item_id']}";
+                                                                $result_item = mysqli_query($connect_db, $sql);
+                                                                $row = mysqli_fetch_array($result_item);
+                                                                echo "
+                                                                    <tr id=\"#cart_item_${row['id']}\">
+                                                                        <td><img src=\"${row['image']}\"></td>
+                                                                        <td><a href=\"index.php?page=iteminfopage&item=${row['id']}\">${row['name']}</a></td>
+                                                                        <td>${row['price']} руб.</td>
+                                                                        <td></td>
+                                                                        <td><button class=\"btn btn-secondary\" onclick=\"delete_item_from_cart('${_SERVER['HTTP_HOST']}', ${row['id']})\">Удалить</button></td>
+                                                                    </tr>
+                                                                ";
+                                                            }
+                                                        }
+                                                    }
+                                                ?>
 												<!-- <tr>
 													<td><img src="images/items/Daewoo-DAST-7565.jpg"></td>
 													<td><a href="index.php?page=iteminfopage">Снегоуборщик бензиновый Daewoo DAST 7565</a></td>

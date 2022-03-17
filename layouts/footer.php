@@ -44,5 +44,6 @@
 		</footer>
 		<script type="text/javascript" src="js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="js/all.js"></script>
+        <script type="text/javascript" src="service_scripts/control-item-cart.js"></script>
 	</body>
 </html>
