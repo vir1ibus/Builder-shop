@@ -56,11 +56,22 @@
                                                                 $row = mysqli_fetch_array($result_item);
                                                                 echo "
                                                                     <tr id=\"#cart_item_${row['id']}\">
-                                                                        <td><img src=\"${row['image']}\"></td>
-                                                                        <td><a href=\"index.php?page=iteminfopage&item=${row['id']}\">${row['name']}</a></td>
-                                                                        <td>${row['price']} руб.</td>
-                                                                        <td></td>
-                                                                        <td><button class=\"btn btn-secondary\" onclick=\"delete_item_from_cart('${_SERVER['HTTP_HOST']}', ${row['id']})\">Удалить</button></td>
+                                                                        <td class=\"row justify-content-center gx-1\">
+                                                                            <div class=\"col-lg-2 col-md-4 col-sm-12 row justify-content-center\"><img src=\"${row['image']}\"></div>
+                                                                            <div class=\"col-lg-5 col-md-5 col-sm-12 row justify-content-center align-content-center\"><a href=\"index.php?page=iteminfopage&item=${row['id']}\">${row['name']}</a></div>
+                                                                            <div class=\"col-lg-2 col-md-2 col-sm-12 row justify-content-center align-content-center\">${row['price']} руб.</div>
+                                                                            <div class=\"col-lg-1 col-md-2 col-sm-12 row justify-content-center align-content-center\">
+                                                                                <input class=\"text-center m-5\" type=\"number\" min=\"0\" name=\"count\">
+                                                                            </div>
+                                                                            <div class=\"col-lg-2 col-md-2 col-sm-12 row justify-content-center align-content-center\">
+                                                                                <button class=\"d-none d-lg-block btn btn-secondary \" onclick=\"delete_item_from_cart('${_SERVER['HTTP_HOST']}', ${row['id']})\">
+                                                                                    Удалить
+                                                                                </button>
+                                                                                <button class=\"d-lg-none btn btn-secondary\" onclick=\"delete_item_from_cart('${_SERVER['HTTP_HOST']}', ${row['id']})\">
+                                                                                        <i class=\"fa fa-trash\"></i>
+                                                                                </button>
+                                                                            </div>
+                                                                        </td>
                                                                     </tr>
                                                                 ";
                                                             }

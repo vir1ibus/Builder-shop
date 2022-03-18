@@ -47,16 +47,24 @@
             require('layouts/home-page.php');
         } else {
             switch ($_GET['page']) {
+                case 'personal-account-page':
+                    if($_SESSION['authorized']) {
+                        require('layouts/personal-account-page.php');
+                    } else {
+                        require('layouts/authorization-page.php');
+                    }
+                break;
+
                 case 'authorizationpage':
                     if($_SESSION['authorized']) {
                         require('layouts/home-page.php');
                     } else {
-                        require 'layouts/authorization-page.php';
+                        require('layouts/authorization-page.php');
                     }
                 break;
 
                 case 'registrationpage':
-                    require 'layouts/registration-page.php';
+                    require('layouts/registration-page.php');
                 break;
 
                 case 'itemspage':

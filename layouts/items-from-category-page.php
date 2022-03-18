@@ -212,8 +212,8 @@
                                                           ${row['price']} руб.
                                                       </div>
                                                       <div class=\"product-links\">
-                                                          <a href=\"#\"><button type=\"submit\" class=\"fas fa-shopping-cart\"></button></a>
-                                                          <a href=\"#\"><button class=\"far fa-heart\"></button></a>
+                                                          <button onclick=\"add_item_into_cart('${_SERVER['HTTP_HOST']}', ${row['id']})\" class=\"fas fa-shopping-cart\"></button>
+                                                          "./* <a href=\"#\"><button class=\"far fa-heart\"></button></a> */ "
                                                       </div>
                                                   </div>
                                               </div>
