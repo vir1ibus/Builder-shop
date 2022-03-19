@@ -13,7 +13,7 @@
 								<h2>${row['name']}</h2>
 								<img src=\"${row['image']}\" alt=\"...\" class=\"item-img\">
 								<h3>${row['price']} руб.</h3>
-								<button type=\"button\" class=\"btn btn-primary\"><i class=\"fas fa-cart-plus\"></i></button>
+								<button type=\"button\" onclick=\"add_item_into_cart('${_SERVER['HTTP_HOST']}', ${row['id']}, '${row['image']}', '${row['name']}', '${row['price']}')\" class=\"btn btn-primary\"><i class=\"fas fa-cart-plus\"></i></button>
 								<button type=\"button\" class=\"btn btn-secondary\" data-bs-dismiss=\"modal\"><i class=\"far fa-credit-card\"></i></button>
 							</div>
 						";
