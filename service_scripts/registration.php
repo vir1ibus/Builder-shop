@@ -70,11 +70,10 @@
 				$_SESSION['code'] = $code;
 				header("Location: http://".$_SERVER['HTTP_HOST']."/index.php?page=confirmregistration");
 				unset($_POST['registration']);
-				exit;
-			} else {
+            } else {
 				header("Location: http://".$_SERVER['HTTP_HOST']."/index.php?page=registrationpage&error=error_send_mail");
-				exit;
-			}
-		}
+            }
+            exit;
+        }
 	}
 ?>

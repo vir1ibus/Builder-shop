@@ -1,13 +1,13 @@
 /* Main content */
 
-.confrim-registration-container {
+.confirm-registration-container {
 	margin: auto;
 	text-align: right;
 	min-width: 75%;
 }
 
 @media (max-width: 767px) {
-	.confrim-registration-container {
+	.confirm-registration-container {
 		margin: auto;
 		text-align: center;
 		min-width: 75%;

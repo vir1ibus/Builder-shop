@@ -50,6 +50,16 @@ DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
+-- Table `builder_shop`.`role`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `builder_shop`.`role` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(60) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `builder_shop`.`user`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `builder_shop`.`user` (
@@ -57,9 +67,16 @@ CREATE TABLE IF NOT EXISTS `builder_shop`.`user` (
   `username` VARCHAR(90) NOT NULL,
   `password` VARCHAR(255) NOT NULL,
   `email` VARCHAR(90) NOT NULL,
+  `role_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `username_UNIQUE` (`username` ASC) VISIBLE,
-  UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE)
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE,
+  INDEX `fk_user_role1_idx` (`role_id` ASC) VISIBLE,
+  CONSTRAINT `fk_user_role1`
+    FOREIGN KEY (`role_id`)
+    REFERENCES `builder_shop`.`role` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 
@@ -98,19 +115,6 @@ CREATE TABLE IF NOT EXISTS `builder_shop`.`order_history_has_item` (
     FOREIGN KEY (`order_history_id`)
     REFERENCES `builder_shop`.`order_history` (`id`))
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
-
-
--- -----------------------------------------------------
--- Table `builder_shop`.`service_images`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `builder_shop`.`service_images` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(60) NOT NULL,
-  `img` LONGBLOB NOT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB
-AUTO_INCREMENT = 2
 DEFAULT CHARACTER SET = utf8mb3;
 
 

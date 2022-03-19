@@ -24,6 +24,12 @@
 				<button type="submit" class="btn btn-primary w-75" name="login">Войти</button>
 			</div>
 		</div>
+        <div class="row mb-2">
+            <label for="login" class="col-md-4 col-form-label p-0 m-0"></label>
+            <div class="row col-md-8 justify-content-center">
+                <a class="btn btn-secondary w-75" href="index.php?page=registrationpage">Ещё нет аккаунта?</a>
+            </div>
+        </div>
 		<?php
 			if(isset($_SESSION['error'])) {
 				switch($_SESSION['error']){

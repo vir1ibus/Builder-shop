@@ -212,8 +212,16 @@
                                                           ${row['price']} руб.
                                                       </div>
                                                       <div class=\"product-links\">
-                                                          <button onclick=\"add_item_into_cart('${_SERVER['HTTP_HOST']}', ${row['id']})\" class=\"fas fa-shopping-cart\"></button>
-                                                          "./* <a href=\"#\"><button class=\"far fa-heart\"></button></a> */ "
+                                                          <button onclick=\"add_item_into_cart('${_SERVER['HTTP_HOST']}', ${row['id']}, '${row['image']}', '${row['name']}', '${row['price']}')\" class=\"fas fa-shopping-cart\"></button>
+                                                          ";
+                                                      if(isset($_SESSION['role'])) {
+                                                          if ($_SESSION['role'] == 'ADMIN') {
+                                                              echo "
+                                                                <button class=\"btn btn-secondary\"><i class=\"fa fa-trash\"></i></button>
+                                                              ";
+                                                          }
+                                                      }
+                                echo "
                                                       </div>
                                                   </div>
                                               </div>

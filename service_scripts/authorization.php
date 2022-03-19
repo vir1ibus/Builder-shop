@@ -4,6 +4,8 @@
 
     if(isset($_GET['prev-page'])) {
         $_SESSION['prev-page'] = $_GET['prev-page'];
+    } else {
+        $_SESSION['prev-page'] = $_SERVER['HTTP_HOST']."/index.php?page=index";
     }
 
 	if(isset($_GET['logout'])) {
@@ -13,7 +15,6 @@
 			header("Location: http://".$_SESSION['prev-page']);
             unset($_SESSION['prev-page']);
 		}
-        echo "<p>".mysqli_error($connect_db)."</p>";
 	} else if(isset($_POST['login'])) {
 		$username = mysqli_real_escape_string($connect_db, $_POST['username']);
 		$sql = "SELECT * FROM user WHERE username = '${username}' AND password = '".hash('sha512', $_POST['password'])."';";
@@ -43,4 +44,3 @@
         }
 	}
     exit;
-?>

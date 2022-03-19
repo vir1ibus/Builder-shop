@@ -43,18 +43,18 @@
 				} else {
 					while($row = mysqli_fetch_array($result)){
 						echo "
-				<div class=\"col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center\">
-					<a href=\"index.php?page=itemspage&category=${row['id']}\">
-						<div class=\"card\">
-							<img src=\"${row['image']}\" class=\"card-img-top\" alt=\"...\">
-							<div class=\"d-flex card-body justify-content-center\">
-								<p class=\"card-text\">
-									${row['name']}
-								</p>
-							</div>
-						</div>
-					</a>
-				</div>";
+                            <div class=\"col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center\">
+                                <a href=\"index.php?page=itemspage&category=${row['id']}\">
+                                    <div class=\"card\">
+                                        <img src=\"${row['image']}\" class=\"card-img-top\" alt=\"...\">
+                                        <div class=\"d-flex card-body justify-content-center\">
+                                            <p class=\"card-text\">
+                                                ${row['name']}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>";
 					}
 				}
 			?>
