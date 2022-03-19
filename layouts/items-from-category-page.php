@@ -200,7 +200,7 @@
                                   </div>";
                         } else {
                             while ($row = mysqli_fetch_array($result_items)) {
-                                echo "<div class=\"col-xl-4 col-lg-6 col-sm-12 d-flex justify-content-center\">
+                                echo "<div id=\"item_${row['id']}\" class=\"col-xl-4 col-lg-6 col-sm-12 d-flex justify-content-center\">
                                           <div class=\"product-card\">
                                               <div class=\"product-thumb\">
                                                   <a href=\"index.php?page=iteminfopage&item=${row['id']}\"><img src=\"${row['image']}\" alt=\"\"></a>
@@ -217,7 +217,7 @@
                                                       if(isset($_SESSION['role'])) {
                                                           if ($_SESSION['role'] == 'ADMIN') {
                                                               echo "
-                                                                <button class=\"btn btn-secondary\"><i class=\"fa fa-trash\"></i></button>
+                                                                <button class=\"btn btn-secondary\" onclick=\"delete_item('${_SERVER['HTTP_HOST']}', ${row['id']})\"><i class=\"fa fa-trash\"></i></button>
                                                               ";
                                                           }
                                                       }

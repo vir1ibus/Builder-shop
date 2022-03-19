@@ -4,6 +4,10 @@
 
     $page = $_GET['page'] ?? 'index';
 
+    if(!isset($_SESSION['HTTP_HOST'])) {
+        $_SESSION['HTTP_HOST'] = $_SERVER['HTTP_HOST'];
+    }
+
     if(!isset($_SESSION['authorized'])) {
         $_SESSION['authorized'] = false;
     }
@@ -27,7 +31,7 @@
             setcookie('token', null, -1);
             $token = null;
             $_SESSION['authorized'] = false;
-            header('Location: http://'.$_SERVER['HTTP_HOST']."/index.php?page=authorizationpage&prev-page=".$_SERVER['HTTP_HOST']."/".$_SERVER['REQUEST_URI']);
+            header('Location: http://'.$_SESSION['HTTP_HOST']."/index.php?page=authorizationpage&prev-page=".$_SERVER['HTTP_HOST']."/".$_SERVER['REQUEST_URI']);
         } else {
             $row = mysqli_fetch_array($result);
             $sql = "SELECT user.id, username, role.name AS \"role_name\" FROM user INNER JOIN role ON user.role_id = role.id AND user.id = ${row['user_id']};";
@@ -52,12 +56,13 @@
             case 'index':
                 require('layouts/home-page.php');
             break;
-
             case 'order-info-page':
+
                 if(isset($_GET['num']) && $_SESSION['authorized']) {
                     $sql = "SELECT * FROM order_history WHERE user_id = ${_SESSION['user_id']} AND id = ${_GET['num']}";
                     $result = mysqli_query($connect_db, $sql);
                     $row = mysqli_fetch_array($result);
+
                     if(mysqli_num_rows($result)) {
                         $_POST['sum'] = $row['sum'];
                         require('layouts/order-info-page.php');

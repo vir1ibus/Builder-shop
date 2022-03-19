@@ -45,5 +45,12 @@
 		<script type="text/javascript" src="js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="js/all.js"></script>
         <script type="text/javascript" src="service_scripts/control-item-cart.js"></script>
+        <?php
+            if(isset($_SESSION['role'])) {
+                if($_SESSION['role'] == 'ADMIN') {
+                    echo "<script type=\"text/javascript\" src=\"service_scripts/control-admin.js\"></script>";
+                }
+            }
+        ?>
 	</body>
 </html>

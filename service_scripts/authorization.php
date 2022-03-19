@@ -2,10 +2,8 @@
     require_once('controller-database.php');
 	session_start();
 
-    if(isset($_GET['prev-page'])) {
+    if(!isset($_SESSION['prev-page'])) {
         $_SESSION['prev-page'] = $_GET['prev-page'];
-    } else {
-        $_SESSION['prev-page'] = $_SERVER['HTTP_HOST']."/index.php?page=index";
     }
 
 	if(isset($_GET['logout'])) {
@@ -22,7 +20,7 @@
 		$error = mysqli_error($connect_db);
 		if(mysqli_num_rows($result) == 0) {
 			$_SESSION['error'] = "error_login";
-			header("Location: http://".$_SERVER['HTTP_HOST']."/index.php?page=authorizationpage");
+			header("Location: http://".$_SESSION['HTTP_HOST']."/index.php?page=authorizationpage");
 		} else {
 			$row = mysqli_fetch_array($result);
 			$user_id = $row['id'];
@@ -39,7 +37,7 @@
                 unset($_SESSION['prev-page']);
             } else {
 				$_SESSION['error'] = "error_db";
-				header("Location: http://".$_SERVER['HTTP_HOST']."/index.php?page=authorizationpage");
+				header("Location: http://".$_SESSION['HTTP_HOST']."/index.php?page=authorizationpage");
             }
         }
 	}

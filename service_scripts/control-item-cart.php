@@ -20,6 +20,33 @@
     }
 
     if(isset($_GET['pay_order'])) {
-
+        if($_SESSION['authorized']) {
+            if(isset($_GET['item_id'], $_GET['item_count'])) {
+                $items = array_combine($_GET['item_id'], $_GET['item_count']);
+                $sum = 0;
+                foreach ($items as $id => $count) {
+                    $sql = "SELECT price FROM item WHERE id = ${id};";
+                    $result = mysqli_query($connect_db, $sql);
+                    $row = mysqli_fetch_array($result);
+                    $sum += $row['price'] * $count;
+                }
+                $sql = "INSERT INTO order_history (user_id, sum, transaction_date) VALUES (${_SESSION['user_id']}, ${sum},'" . date_format(date_create(), "Y-m-d H:i:s") . "');";
+                mysqli_query($connect_db, $sql);
+                $order_id = mysqli_insert_id($connect_db);
+                foreach ($items as $id => $count) {
+                    $sql = "INSERT INTO order_history_has_item VALUES (${order_id}, ${id}, ${count})";
+                    if (mysqli_query($connect_db, $sql)) {
+                        $sql = "DELETE FROM user_has_item WHERE user_id = ${_SESSION['user_id']} AND item_id = ${id};";
+                        mysqli_query($connect_db, $sql);
+                    }
+                }
+                header("Location: http://" . $_SESSION['HTTP_HOST'] . "/index.php?page=order-info-page&num=${order_id}");
+            } else {
+                header("Location: http://" . $_SESSION['HTTP_HOST'] . "/index.php?page=index");
+            }
+        } else {
+            header("Location: http://".$_SESSION['HTTP_HOST']."/index.php?page=authorizationpage");
+        }
+        exit;
     }
 ?>

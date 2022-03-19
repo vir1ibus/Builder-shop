@@ -138,19 +138,19 @@
                 <?php
                 if(isset($_SESSION['error_add_item'])) {
                     switch ($_SESSION['error_add_item']) {
-                        case 'category_deleted':
+                        case 'add_item':
                             echo "
-                                    <div class=\"row\">
-                                        <label class=\"col-form-label text-center\">Категория успешно удалена</label>
-                                    </div>
-                                ";
+                                <div class=\"row\">
+                                    <label class=\"col-form-label text-center\">Товар успешно добавлен</label>
+                                </div>
+                            ";
                             break;
                         default:
                             echo "
-                                    <div class=\"row\">
-                                        <label class=\"col-form-label text-center\">${_SESSION['error_add_item']}</label>
-                                    </div>
-                                ";
+                                <div class=\"row\">
+                                    <label class=\"col-form-label text-center\">${_SESSION['error_add_item']}</label>
+                                </div>
+                            ";
                             break;
                     }
                     unset($_SESSION['error_add_item']);

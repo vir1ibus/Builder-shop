@@ -74,16 +74,36 @@ if($row['role_id'] != $admin_role_id) {
 
         $filepath = "../img/item/".strtr(mb_strtolower($_POST['name-item']), array_combine($rus, $lat)).".".pathinfo($_FILES['image-item']['name'], PATHINFO_EXTENSION);;
         if(move_uploaded_file($_FILES['image-item']['tmp_name'], $filepath)) {
-            if(isset($_POST['description-item'])) {
-                $sql = "INSERT INTO item (name, image, price, description, category_id) VALUES ('${_POST['name-item']}', '${filepath}', ${_POST['price-item']}, '${_POST['description-item']}', ${_POST['category']});";
-            } else {
+            if(empty($_POST['description-item'])) {
                 $sql = "INSERT INTO item (name, image, price, category_id) VALUES ('${_POST['name-item']}', '${filepath}', ${_POST['price-item']}, ${_POST['category']});";
+            } else {
+                $sql = "INSERT INTO item (name, image, price, description, category_id) VALUES ('${_POST['name-item']}', '${filepath}', ${_POST['price-item']}, '${_POST['description-item']}', ${_POST['category']});";
             }
-
             if (mysqli_query($connect_db, $sql)) {
                 return_result_add_item("add_item");
             } else {
                 return_result_add_item(mysqli_error($connect_db));
             }
         }
+    }
+
+    if(isset($_GET['delete-item'])) {
+        $sql = "DELETE FROM item WHERE id = ${_GET['delete-item']};";
+        mysqli_query($connect_db, $sql);
+    }
+
+    if(isset($_GET['add-char'])) {
+        $sql = "INSERT INTO characteristics(name) VALUES ('${_GET['char-name']}');";
+        mysqli_query($connect_db, $sql);
+        $sql = "INSERT INTO item_has_characteristics VALUES (${_GET['item_id']}, ".mysqli_insert_id($connect_db).", '${_GET['char-val']}');";
+        mysqli_query($connect_db, $sql);
+        header("Location: http://".$_SESSION['HTTP_HOST']."/index.php?page=iteminfopage&item=${_GET['item_id']}");
+        exit;
+    }
+
+    if(isset($_GET['del-char'])) {
+        $sql = "DELETE FROM item_has_characteristics WHERE item_id = ${_GET['item_id']} AND characteristics_id = ${_GET['del-char']};";
+        mysqli_query($connect_db, $sql);
+        header("Location: http://".$_SESSION['HTTP_HOST']."/index.php?page=iteminfopage&item=${_GET['item_id']}");
+        exit;
     }

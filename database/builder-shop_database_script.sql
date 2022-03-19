@@ -103,14 +103,16 @@ DEFAULT CHARACTER SET = utf8mb3;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `builder_shop`.`order_history_has_item` (
   `order_history_id` INT NOT NULL,
-  `item_item_id` INT NOT NULL,
+  `item_id` INT NOT NULL,
   `count` INT NOT NULL,
-  PRIMARY KEY (`order_history_id`, `item_item_id`),
-  INDEX `fk_order_history_has_item_item1_idx` (`item_item_id` ASC) VISIBLE,
+  PRIMARY KEY (`order_history_id`, `item_id`),
+  INDEX `fk_order_history_has_item_item1_idx` (`item_id` ASC) VISIBLE,
   INDEX `fk_order_history_has_item_order_history1_idx` (`order_history_id` ASC) VISIBLE,
   CONSTRAINT `fk_order_history_has_item_item1`
-    FOREIGN KEY (`item_item_id`)
-    REFERENCES `builder_shop`.`item` (`id`),
+    FOREIGN KEY (`item_id`)
+    REFERENCES `builder_shop`.`item` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_order_history_has_item_order_history1`
     FOREIGN KEY (`order_history_id`)
     REFERENCES `builder_shop`.`order_history` (`id`))
@@ -141,8 +143,8 @@ CREATE TABLE IF NOT EXISTS `builder_shop`.`item_has_characteristics` (
   CONSTRAINT `fk_item_has_characteristics_item1`
     FOREIGN KEY (`item_id`)
     REFERENCES `builder_shop`.`item` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_item_has_characteristics_characteristics1`
     FOREIGN KEY (`characteristics_id`)
     REFERENCES `builder_shop`.`characteristics` (`id`)
@@ -187,8 +189,8 @@ CREATE TABLE IF NOT EXISTS `builder_shop`.`user_has_item` (
   CONSTRAINT `fk_user_has_item_item1`
     FOREIGN KEY (`item_id`)
     REFERENCES `builder_shop`.`item` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 
