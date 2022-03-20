@@ -1,7 +1,8 @@
 <?php
-	unset($_POST['registration']);
     if(isset($_GET['prev-page'])) {
         $_SESSION['prev-page'] = $_GET['prev-page'];
+    } else {
+        $_SESSION['prev-page'] = "/index.php?page=index";
     }
 ?>
 

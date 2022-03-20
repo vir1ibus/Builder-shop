@@ -40,12 +40,12 @@
                         mysqli_query($connect_db, $sql);
                     }
                 }
-                header("Location: http://" . $_SESSION['HTTP_HOST'] . "/index.php?page=order-info-page&num=${order_id}");
+                header("Location: http://" . $_SERVER['HTTP_HOST'] . "/index.php?page=order-info-page&num=${order_id}");
             } else {
-                header("Location: http://" . $_SESSION['HTTP_HOST'] . "/index.php?page=index");
+                header("Location: http://" . $_SERVER['HTTP_HOST'] . "/index.php?page=index");
             }
         } else {
-            header("Location: http://".$_SESSION['HTTP_HOST']."/index.php?page=authorizationpage");
+            header("Location: http://".$_SERVER['HTTP_HOST']."/index.php?page=authorizationpage");
         }
         exit;
     }

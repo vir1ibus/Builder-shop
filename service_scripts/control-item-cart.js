@@ -22,7 +22,7 @@ function add_item_into_cart(url, item_id, image, name, price) {
                         <input class="text-center m-5" type="number" min="0" value="1" name="item_count[]" id="cart_counter_item_${item_id}">
                     </div>
                     <div class=\"col-lg-1 col-sm-12 row justify-content-center align-content-center\">
-                        <button class=\"btn btn-secondary\" onclick=\"delete_item_from_cart('${_SESSION['HTTP_HOST']}', ${row['id']})\">
+                        <button class=\"btn btn-secondary\" onclick=\"delete_item_from_cart('\${_SESSION['HTTP_HOST']}', \${row['id']})\">
                                 <i class=\"fa fa-trash\"></i>
                         </button>
                     </div>

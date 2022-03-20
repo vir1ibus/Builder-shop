@@ -10,34 +10,34 @@
     <div class="row g-5">
         <div class="col-lg-6 col-md-12">
             <h4 class="mb-3">Персональные данные</h4>
-            <form action="service_scripts/authorization.php" METHOD="GET">
-                <div class="row g-3">
-                    <div class="col-12">
-                        <label for="login" class="form-label">
-                            Имя пользователя
-                        </label>
-                        <input type="text" class="form-control" id="login" readonly value="<?php echo $row['username']; ?>">
-                    </div>
-                    <div class="col-12">
-                        <label for="email" class="form-label">
-                            Email
-                        </label>
-                        <input type="email" class="form-control" id="email" readonly value="<?php echo $row['email']; ?>">
-                    </div>
-                    <?php
-                        if($_SESSION['role'] != 'USER') {
-                            echo "
-                                <div class=\"col-12\">
-                                    <label for=\"role\" class=\"form-label\">
-                                        Role
-                                    </label>
-                                    <input type=\"role\" class=\"form-control\" id=\"role\" readonly value=\"${_SESSION['role']}\">
-                                </div>
-                            ";
-                        }
-                    ?>
+            <div class="row g-3">
+                <div class="col-12">
+                    <label for="login" class="form-label">
+                        Имя пользователя
+                    </label>
+                    <input type="text" class="form-control" id="login" readonly value="<?php echo $row['username']; ?>">
                 </div>
-                <button class="btn btn-secondary mt-3" name="logout">
+                <div class="col-12">
+                    <label for="email" class="form-label">
+                        Email
+                    </label>
+                    <input type="email" class="form-control" id="email" readonly value="<?php echo $row['email']; ?>">
+                </div>
+                <?php
+                    if($_SESSION['role'] != 'USER') {
+                        echo "
+                            <div class=\"col-12\">
+                                <label for=\"role\" class=\"form-label\">
+                                    Role
+                                </label>
+                                <input type=\"role\" class=\"form-control\" id=\"role\" readonly value=\"${_SESSION['role']}\">
+                            </div>
+                        ";
+                    }
+                ?>
+            </div>
+            <form action="service_scripts/authorization.php" METHOD="POST">
+                <button class="btn btn-secondary mt-3" name="logout-personal-page">
                     Выйти
                 </button>
             </form>

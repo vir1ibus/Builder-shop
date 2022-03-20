@@ -1,11 +1,13 @@
 <?php
     if(isset($_GET['prev-page'])) {
         $_SESSION['prev-page'] = $_GET['prev-page'];
+    } else {
+        $_SESSION['prev-page'] = "/index.php?page=index";
     }
 ?>
 
 <div class="authorization-container">
-	<form action="service_scripts/authorization.php" method="POST">
+	<form action="service_scripts/authorization.php" method="GET">
 		<div class="row mb-2">
 			<label for="username" class="col-md-4 col-form-label">Имя пользователя</label>
 			<div class="col-md-8">

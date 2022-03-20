@@ -130,8 +130,7 @@
                                 echo "
                                     <ul class=\"dropdown-menu\" aria-labelledby=\"navbarDropdown\">
                                         <form action=\"service_scripts/authorization.php\" method=\"GET\">
-                                            <input type=\"hidden\" name=\"token\" value=\"${_SESSION['token']}\">
-                                            <input type=\"hidden\" name=\"prev-page\" value=\"${_SERVER['HTTP_HOST']}${_SERVER['REQUEST_URI']}\">
+                                            <input type=\"hidden\" name=\"prev-page\" value=\"${_SERVER['REQUEST_URI']}\">
                                             <li class=\"row text-center username-container\">
                                                 <a href=\"index.php?page=personal-account-page\" class=\"btn btn-primary dropdown-item col-form-label\">${_SESSION['username']}</a>
                                             </li>
@@ -143,23 +142,23 @@
                                 </li>";
                             } else {
                                 echo "
-                                        <ul class=\"dropdown-menu\" aria-labelledby=\"navbarDropdown\">
-                                            <li>
-                                                <form action=\"index.php\" method=\"GET\">
-                                                    <input type=\"hidden\" name=\"prev-page\" value=\"${_SERVER['HTTP_HOST']}${_SERVER['REQUEST_URI']}\">
-                                                    <input type=\"hidden\" name=\"page\" value=\"registrationpage\">
-                                                    <button type=\"submit\" class=\"dropdown-item\">Регистрация</button>
-                                                </form>
-                                            </li>
-                                            <li>
-                                                <form action=\"index.php\" method=\"GET\">
-                                                    <input type=\"hidden\" name=\"prev-page\" value=\"${_SERVER['HTTP_HOST']}${_SERVER['REQUEST_URI']}\">
-                                                    <input type=\"hidden\" name=\"page\" value=\"authorizationpage\">
-                                                    <button type=\"submit\" class=\"dropdown-item\">Авторизация</button>
-                                                </form>
-                                            </li>
-                                        </ul>
-                                     </li>";
+                                    <ul class=\"dropdown-menu\" aria-labelledby=\"navbarDropdown\">
+                                        <li>
+                                            <form action=\"index.php\" method=\"GET\">
+                                                <input type=\"hidden\" name=\"prev-page\" value=\"${_SERVER['REQUEST_URI']}\">
+                                                <input type=\"hidden\" name=\"page\" value=\"registrationpage\">
+                                                <button type=\"submit\" class=\"dropdown-item\">Регистрация</button>
+                                            </form>
+                                        </li>
+                                        <li>
+                                            <form action=\"index.php\" method=\"GET\">
+                                                <input type=\"hidden\" name=\"prev-page\" value=\"${_SERVER['REQUEST_URI']}\">
+                                                <input type=\"hidden\" name=\"page\" value=\"authorizationpage\">
+                                                <button type=\"submit\" class=\"dropdown-item\">Авторизация</button>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </li>";
                             }
                         }
                         ?>
