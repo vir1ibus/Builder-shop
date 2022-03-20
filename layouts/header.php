@@ -46,6 +46,7 @@
                                             <table class="table">
                                                 <tbody id="cart">
                                                     <?php
+                                                        $sum = 0;
                                                         if($_SESSION['authorized']) {
                                                             if(isset($_SESSION['cart'])) {
                                                                 foreach ($_SESSION['cart'] as $id) {
@@ -61,6 +62,7 @@
                                                                     $sql = "SELECT id, name, image, price FROM item WHERE id = ${row['item_id']}";
                                                                     $result_item = mysqli_query($connect_db, $sql);
                                                                     $row = mysqli_fetch_array($result_item);
+                                                                    $sum += $row['price'];
                                                                     echo "
                                                                         <tr id=\"cart_item_${row['id']}\">
                                                                             <td class=\"row justify-content-center g-1\">
@@ -69,10 +71,10 @@
                                                                                 <div class=\"col-xl-5 col-lg-4 col-md-12 col-sm-12 row justify-content-center align-content-center\"><a class=\"text-center\" href=\"index.php?page=iteminfopage&item=${row['id']}\">${row['name']}</a></div>
                                                                                 <div class=\"col-xl-2 col-lg-2 col-md-12 col-sm-12 row justify-content-center align-content-center\">${row['price']} руб.</div>
                                                                                 <div class=\"col-xl-2 col-lg-3 col-md-12 col-sm-12 row justify-content-center align-content-center\">
-                                                                                    <input class=\"text-center w-50\" type=\"number\" min=\"1\" value=\"1\" name=\"item_count[]\" id=\"cart_counter_item_${row['id']}\">
+                                                                                    <input class=\"text-center w-50\" type=\"number\" min=\"1\" value=\"1\" name=\"item_count[]\" onchange=\"change_count(${row['id']}, ${row['price']})\" id=\"cart_counter_item_${row['id']}\">
                                                                                 </div>
                                                                                 <div class=\"col-lg-1 col-sm-12 row justify-content-center align-content-center\">
-                                                                                    <button class=\"btn btn-secondary\" onclick=\"delete_item_from_cart('${_SERVER['HTTP_HOST']}', ${row['id']})\">
+                                                                                    <button class=\"btn btn-secondary\" onclick=\"delete_item_from_cart('${_SERVER['HTTP_HOST']}', ${row['id']}, '${row['price']}')\">
                                                                                             <i class=\"fa fa-trash\"></i>
                                                                                     </button>
                                                                                 </div>
@@ -86,24 +88,25 @@
                                                                 $sql = "SELECT id, name, image, price FROM item WHERE id = ${id}";
                                                                 $result = mysqli_query($connect_db, $sql);
                                                                 $row = mysqli_fetch_array($result);
+                                                                $sum += $row['price'];
                                                                 echo "
-                                                                        <tr id=\"cart_item_${row['id']}\">
-                                                                            <td class=\"row justify-content-center g-1\">
-                                                                                <input type=\"hidden\" name=\"item_id[]\" value=\"${row['id']}\">
-                                                                                <div class=\"col-xl-3 col-lg-3 col-md-12 col-sm-12 row justify-content-center align-self-start\"><img style=\"object-fit: contain;\" src=\"${row['image']}\"></div>
-                                                                                <div class=\"col-xl-5 col-lg-4 col-md-12 col-sm-12 row justify-content-center align-content-center\"><a class=\"text-center\" href=\"index.php?page=iteminfopage&item=${row['id']}\">${row['name']}</a></div>
-                                                                                <div class=\"col-xl-2 col-lg-2 col-md-12 col-sm-12 row justify-content-center align-content-center\">${row['price']} руб.</div>
-                                                                                <div class=\"col-xl-2 col-lg-3 col-md-12 col-sm-12 row justify-content-center align-content-center\">
-                                                                                    <input class=\"text-center w-50\" type=\"number\" min=\"1\" value=\"1\" name=\"item_count[]\" id=\"cart_counter_item_${row['id']}\">
-                                                                                </div>
-                                                                                <div class=\"col-lg-1 col-sm-12 row justify-content-center align-content-center\">
-                                                                                    <button class=\"btn btn-secondary\" onclick=\"delete_item_from_cart('${_SERVER['HTTP_HOST']}', ${row['id']})\">
-                                                                                            <i class=\"fa fa-trash\"></i>
-                                                                                    </button>
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-                                                                    ";
+                                                                    <tr id=\"cart_item_${row['id']}\">
+                                                                        <td class=\"row justify-content-center g-1\">
+                                                                            <input type=\"hidden\" name=\"item_id[]\" value=\"${row['id']}\">
+                                                                            <div class=\"col-xl-3 col-lg-3 col-md-12 col-sm-12 row justify-content-center align-self-start\"><img style=\"object-fit: contain;\" src=\"${row['image']}\"></div>
+                                                                            <div class=\"col-xl-5 col-lg-4 col-md-12 col-sm-12 row justify-content-center align-content-center\"><a class=\"text-center\" href=\"index.php?page=iteminfopage&item=${row['id']}\">${row['name']}</a></div>
+                                                                            <div class=\"col-xl-2 col-lg-2 col-md-12 col-sm-12 row justify-content-center align-content-center\">${row['price']} руб.</div>
+                                                                            <div class=\"col-xl-2 col-lg-3 col-md-12 col-sm-12 row justify-content-center align-content-center\">
+                                                                                <input class=\"text-center w-50\" type=\"number\" min=\"1\" value=\"1\" name=\"item_count[]\" onchange=\"change_count(${row['id']}, ${row['price']})\" id=\"cart_counter_item_${row['id']}\">
+                                                                            </div>
+                                                                            <div class=\"col-lg-1 col-sm-12 row justify-content-center align-content-center\">
+                                                                                <button class=\"btn btn-secondary\" onclick=\"delete_item_from_cart('${_SERVER['HTTP_HOST']}', ${row['id']}, '${row['price']}')\">
+                                                                                        <i class=\"fa fa-trash\"></i>
+                                                                                </button>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                ";
                                                             }
                                                         }
                                                     ?>
@@ -111,9 +114,8 @@
                                             </table>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="submit" class="btn btn-primary" name="pay_order">Оплата</button>
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Продолжить покупки</button>
-                                        </div>
+                                            <div class="col-lg-11 col-10"><span>Итого: </span><input class="w-25" type="text" id="total-cart" value="<?php echo $sum; ?>" readonly></div>
+                                            <button type="submit" class="btn btn-primary" name="pay_order"><i class="fa fa-credit-card"></i></button>
                                         </div>
                                     </form>
                                 </div>

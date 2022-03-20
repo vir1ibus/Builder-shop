@@ -4,7 +4,9 @@
     if(isset($_GET['delete_item_from_cart'])) {
         if($_SESSION['authorized']) {
             $sql = "DELETE FROM user_has_item WHERE user_id = ${_SESSION['user_id']} AND item_id = ${_GET['delete_item_from_cart']};";
-            $result = mysqli_query($connect_db, $sql);
+            if(!mysqli_query($connect_db, $sql)) {
+                unset($_SESSION['cart'][array_search($_GET['delete_item_from_cart'], $_SESSION['cart'])]);
+            }
         } else {
             unset($_SESSION['cart'][array_search($_GET['delete_item_from_cart'], $_SESSION['cart'])]);
         }

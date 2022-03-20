@@ -100,10 +100,6 @@
                 require('layouts/item-info-page.php');
             break;
 
-            case 'fileuploadpage':
-                require('layouts/fileuploadpage.php');
-            break;
-
             case 'confirmregistration':
                 if(isset($_SESSION['username-reg'], $_SESSION['email-reg'], $_SESSION['password-reg'])) {
                     require('layouts/confirm-registration-page.php');
