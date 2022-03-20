@@ -97,13 +97,13 @@ if($row['role_id'] != $admin_role_id) {
         mysqli_query($connect_db, $sql);
         $sql = "INSERT INTO item_has_characteristics VALUES (${_GET['item_id']}, ".mysqli_insert_id($connect_db).", '${_GET['char-val']}');";
         mysqli_query($connect_db, $sql);
-        header("Location: http://".$_SESSION['HTTP_HOST']."/index.php?page=iteminfopage&item=${_GET['item_id']}");
+        header("Location: http://".$_SERVER['HTTP_HOST']."/index.php?page=iteminfopage&item=${_GET['item_id']}");
         exit;
     }
 
     if(isset($_GET['del-char'])) {
         $sql = "DELETE FROM item_has_characteristics WHERE item_id = ${_GET['item_id']} AND characteristics_id = ${_GET['del-char']};";
         mysqli_query($connect_db, $sql);
-        header("Location: http://".$_SESSION['HTTP_HOST']."/index.php?page=iteminfopage&item=${_GET['item_id']}");
+        header("Location: http://".$_SERVER['HTTP_HOST']."/index.php?page=iteminfopage&item=${_GET['item_id']}");
         exit;
     }

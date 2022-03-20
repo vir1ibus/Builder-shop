@@ -1,5 +1,4 @@
 <?php
-	
 	$address_db = "localhost";
 	$login_db = "root";
 	$password_db = "root";
@@ -11,5 +10,4 @@
 		print("Ошибка: Невозможно подключиться к MySQL " . mysqli_connect_error());
 		exit;
 	}
-
 ?>

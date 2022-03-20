@@ -111,9 +111,6 @@
                         echo "<br>";
                     }
                     echo "
-                                <div class=\"row justify-content-center\">
-                                    <button class=\"btn btn-primary w-75\" type=\"submit\">Применить</button>
-                                </div>
                             </form>
                             </div>
                         </div>

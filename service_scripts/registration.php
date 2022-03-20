@@ -9,16 +9,16 @@
 			$sql = "INSERT INTO user (username, password, email, role_id) VALUES ('".mysqli_escape_string($connect_db, $_SESSION['username-reg'])."', '".hash('sha512', $_SESSION['password-reg'])."', '".mysqli_escape_string($connect_db, $_SESSION['email-reg'])."', ${row['id']});";
 			if(mysqli_query($connect_db, $sql)){
 				unset($_SESSION['username-reg'], $_SESSION['email-reg'], $_SESSION['password-reg'], $_POST['confirm']);
-				header("Location: http://".$_SESSION['HTTP_HOST']."/index.php?page=authorizationpage");
+				header("Location: http://".$_SERVER['HTTP_HOST']."/index.php?page=authorizationpage");
 				exit;
 			} else {
 				unset($_SESSION['username-reg'], $_SESSION['email-reg'], $_SESSION['password-reg'], $_POST['confirm-reg']);
 				$_SESSION['error'] = 'error_db';
-				header("Location: http://".$_SESSION['HTTP_HOST']."/index.php?page=registrationpage");
+				header("Location: http://".$_SERVER['HTTP_HOST']."/index.php?page=registrationpage");
 			}
 		} else {
 			$_SESSION['error'] = 'error_db';
-			header("Location: http://".$_SESSION['HTTP_HOST']."/index.php?page=registrationpage");
+			header("Location: http://".$_SERVER['HTTP_HOST']."/index.php?page=registrationpage");
 			exit;
 		}
 	} else {
@@ -28,19 +28,19 @@
 
 		if (!preg_match('/[A-Za-z0-9]{3,}/', $_SESSION['username-reg'])){
 			$_SESSION['error'] = 'error_username';
-			header("Location: http://".$_SESSION['HTTP_HOST']."/index.php?page=registrationpage");
+			header("Location: http://".$_SERVER['HTTP_HOST']."/index.php?page=registrationpage");
 			exit;
 		} else if (!preg_match('/[A-Za-z0-9]{4,}@[A-Za-z0-9]{3,}.[A-Za-z]{2,}/', $_SESSION['email-reg'])){
 			$_SESSION['error'] = 'error_email';
-			header("Location: http://".$_SESSION['HTTP_HOST']."/index.php?page=registrationpage");
+			header("Location: http://".$_SERVER['HTTP_HOST']."/index.php?page=registrationpage");
 			exit;
 		} else if (strlen($_SESSION['password-reg']) < 6){
 			$_SESSION['error'] = 'error_length_password';
-			header("Location: http://".$_SESSION['HTTP_HOST']."/index.php?page=registrationpage");
+			header("Location: http://".$_SERVER['HTTP_HOST']."/index.php?page=registrationpage");
 			exit;
 		} else if ($_SESSION['password-reg'] != mysqli_escape_string($connect_db, $_POST['user-retry-password'])){
 			$_SESSION['error'] = 'error_match_password';
-			header("Location: http://".$_SESSION['HTTP_HOST']."/index.php?page=registrationpage");
+			header("Location: http://".$_SERVER['HTTP_HOST']."/index.php?page=registrationpage");
 			exit;
 		} else {
             print mysqli_escape_string($connect_db, $_SESSION['username-reg']);
@@ -48,14 +48,14 @@
 			$result = mysqli_query($connect_db, $sql);
 			if(mysqli_num_rows($result)) {
 				$_SESSION['error'] = 'error_username_exists';
-				header("Location: http://".$_SESSION['HTTP_HOST']."/index.php?page=registrationpage");
+				header("Location: http://".$_SERVER['HTTP_HOST']."/index.php?page=registrationpage");
 				exit;
 			}
 			$sql = "SELECT * FROM user WHERE email = '".mysqli_escape_string($connect_db, $_SESSION['email-reg'])."';";
 			$result = mysqli_query($connect_db, $sql);
 			if(mysqli_num_rows($result)) {
 				$_SESSION['error'] = 'error_email_exists';
-				header("Location: http://".$_SESSION['HTTP_HOST']."/index.php?page=registrationpage");
+				header("Location: http://".$_SERVER['HTTP_HOST']."/index.php?page=registrationpage");
 				exit;
 			}
 			$subject = "Подтверждение аккаунта Builder shop";
@@ -71,10 +71,10 @@
 
 			if(mail($_SESSION['email-reg'], $subject, $message, $headers)){
 				$_SESSION['code'] = $code;
-				header("Location: http://".$_SESSION['HTTP_HOST']."/index.php?page=confirmregistration");
+				header("Location: http://".$_SERVER['HTTP_HOST']."/index.php?page=confirmregistration");
 				unset($_POST['registration']);
             } else {
-				header("Location: http://".$_SESSION['HTTP_HOST']."/index.php?page=registrationpage&error=error_send_mail");
+				header("Location: http://".$_SERVER['HTTP_HOST']."/index.php?page=registrationpage&error=error_send_mail");
             }
             exit;
         }
